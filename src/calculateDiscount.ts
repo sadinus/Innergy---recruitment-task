@@ -31,16 +31,16 @@ const getWeddingSessionDiscount = (
 ) => {
   if (
     selectedYear === 2022 &&
-    selectedServices.includes("Photography") &&
-    selectedServices.includes("WeddingSession")
+    selectedServices.includes("WeddingSession") &&
+    selectedServices.includes("Photography")
   ) {
     return fullPrice;
   }
 
   if (
+    selectedServices.includes("WeddingSession") &&
     (selectedServices.includes("Photography") ||
-      selectedServices.includes("VideoRecording")) &&
-    selectedServices.includes("WeddingSession")
+      selectedServices.includes("VideoRecording"))
   ) {
     return 300;
   }
