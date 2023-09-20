@@ -29,7 +29,7 @@ const getWeddingSessionDiscount = (
   selectedServices: ServiceType[],
   selectedYear: ServiceYear
 ) => {
-  if (selectedYear === 2022) {
+  if (selectedYear === 2022 && selectedServices.includes("Photography")) {
     return fullPrice;
   }
 
