@@ -1,3 +1,4 @@
+import { calculateDiscount } from "./calculateDiscount";
 import { YearPrices } from "./data";
 import data from "./data.json";
 
@@ -18,22 +19,27 @@ export const calculatePrice = (
   selectedServices: ServiceType[],
   selectedYear: ServiceYear
 ) => {
-  const yearPrices = getYearPrices(selectedYear);
+  const yearPrices: YearPrices | undefined = data.prices[selectedYear];
+  const basePrice = calculateBasePrice(selectedServices, yearPrices);
 
-  const basePrice = selectedServices.reduce(
-    (acc: number, service: ServiceType) => {
-      return acc + yearPrices[service];
-    },
-    0
+  const discount = calculateDiscount(
+    selectedServices,
+    selectedYear,
+    yearPrices
   );
-
-  const finalPrice = 0;
-  //   const finalPrice = calculateDiscount(basePrice);
+  const finalPrice = basePrice - discount;
 
   return { basePrice, finalPrice };
 };
 
-const getYearPrices = (year: number) => {
-  const yearPrices: YearPrices | undefined = data.prices[year];
-  return yearPrices;
+const calculateBasePrice = (
+  selectedServices: ServiceType[],
+  yearPrices: YearPrices
+) => {
+  const basePrice = selectedServices.reduce(
+    (acc: number, service: ServiceType) => acc + yearPrices[service],
+    0
+  );
+
+  return basePrice;
 };
