@@ -18,14 +18,21 @@ export const updateSelectedServices = (
 ) => {
   const { type, service } = action;
   const containsService = previouslySelectedServices.includes(service);
-  const shouldAddService = validateService(service, previouslySelectedServices);
+  const shouldSelectService = validateService(
+    service,
+    previouslySelectedServices
+  );
 
-  if (type === "Select" && !containsService && shouldAddService) {
+  if (type === "Select" && !containsService && shouldSelectService) {
     return [...previouslySelectedServices, service];
   }
 
   if (type === "Deselect" && containsService) {
-    return previouslySelectedServices.filter((x) => x !== service);
+    const services = deselectRelatedService(
+      service,
+      previouslySelectedServices
+    );
+    return services;
   }
 
   return previouslySelectedServices;
@@ -80,4 +87,32 @@ const validateService = (
   }
 
   return true;
+};
+
+const deselectRelatedService = (
+  service: ServiceType,
+  previouslySelectedServices: ServiceType[]
+) => {
+  if (
+    (service === "Photography" || service === "VideoRecording") &&
+    !["Photography", "VideoRecording"].every((x: ServiceType) =>
+      previouslySelectedServices.includes(x)
+    ) &&
+    previouslySelectedServices.includes("TwoDayEvent")
+  ) {
+    return previouslySelectedServices.filter(
+      (x) => x !== service && x !== "TwoDayEvent"
+    );
+  }
+
+  if (
+    service === "VideoRecording" &&
+    previouslySelectedServices.includes("BlurayPackage")
+  ) {
+    return previouslySelectedServices.filter(
+      (x) => x !== service && x !== "BlurayPackage"
+    );
+  }
+
+  return previouslySelectedServices.filter((x) => x !== service);
 };
