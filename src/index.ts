@@ -1,19 +1,34 @@
 import { calculateDiscount } from "./calculateDiscount";
-import { YearPrices } from "./data";
 import data from "./data.json";
 
 export type ServiceYear = 2020 | 2021 | 2022;
 export type ServiceType =
-  | "photography"
-  | "videoRecording"
-  | "blurayPackage"
-  | "twoDayEvent"
-  | "weddingSession";
+  | "Photography"
+  | "VideoRecording"
+  | "BlurayPackage"
+  | "TwoDayEvent"
+  | "WeddingSession";
+export type YearPrices = {
+  [K in ServiceType]: number;
+} & { PhotographyAndVideo: number };
 
 export const updateSelectedServices = (
   previouslySelectedServices: ServiceType[],
   action: { type: "Select" | "Deselect"; service: ServiceType }
-) => [];
+) => {
+  const { type, service } = action;
+  const containsService = previouslySelectedServices.includes(service);
+
+  if (type === "Select" && !containsService) {
+    return { ...previouslySelectedServices, service };
+  }
+
+  if (type === "Deselect" && containsService) {
+    return previouslySelectedServices.filter((x) => x !== service);
+  }
+
+  return previouslySelectedServices;
+};
 
 export const calculatePrice = (
   selectedServices: ServiceType[],

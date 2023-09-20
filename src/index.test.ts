@@ -9,33 +9,33 @@ describe("updateSelectedServices.select", () => {
   test("should select when not selected", () => {
     const result = updateSelectedServices([], {
       type: "Select",
-      service: "photography",
+      service: "Photography",
     });
     expect(result).toEqual(["Photography"]);
   });
 
   test("should not select the same service twice", () => {
-    const result = updateSelectedServices(["photography"], {
+    const result = updateSelectedServices(["Photography"], {
       type: "Select",
-      service: "photography",
+      service: "Photography",
     });
     expect(result).toEqual(["Photography"]);
   });
 
   test("should not select related service when main service is not selected", () => {
-    const result = updateSelectedServices(["weddingSession"], {
+    const result = updateSelectedServices(["WeddingSession"], {
       type: "Select",
-      service: "blurayPackage",
+      service: "BlurayPackage",
     });
     expect(result).toEqual(["WeddingSession"]);
   });
 
   test("should select related service when main service is selected", () => {
     const result = updateSelectedServices(
-      ["weddingSession", "videoRecording"],
+      ["WeddingSession", "VideoRecording"],
       {
         type: "Select",
-        service: "blurayPackage",
+        service: "BlurayPackage",
       }
     );
     expect(result).toEqual([
@@ -46,9 +46,9 @@ describe("updateSelectedServices.select", () => {
   });
 
   test("should select related service when one of main services is selected", () => {
-    const result = updateSelectedServices(["weddingSession", "photography"], {
+    const result = updateSelectedServices(["WeddingSession", "Photography"], {
       type: "Select",
-      service: "twoDayEvent",
+      service: "TwoDayEvent",
     });
     expect(result).toEqual(["WeddingSession", "Photography", "TwoDayEvent"]);
   });
@@ -56,27 +56,27 @@ describe("updateSelectedServices.select", () => {
 
 describe("updateSelectedServices.deselect", () => {
   test("should deselect", () => {
-    const result = updateSelectedServices(["weddingSession", "photography"], {
+    const result = updateSelectedServices(["WeddingSession", "Photography"], {
       type: "Deselect",
-      service: "photography",
+      service: "Photography",
     });
     expect(result).toEqual(["WeddingSession"]);
   });
 
   test("should do nothing when service not selected", () => {
-    const result = updateSelectedServices(["weddingSession", "photography"], {
+    const result = updateSelectedServices(["WeddingSession", "Photography"], {
       type: "Deselect",
-      service: "twoDayEvent",
+      service: "TwoDayEvent",
     });
     expect(result).toEqual(["WeddingSession", "Photography"]);
   });
 
   test("should deselect related when last main service deselected", () => {
     const result = updateSelectedServices(
-      ["weddingSession", "photography", "twoDayEvent"],
+      ["WeddingSession", "Photography", "TwoDayEvent"],
       {
         type: "Deselect",
-        service: "photography",
+        service: "Photography",
       }
     );
     expect(result).toEqual(["WeddingSession"]);
@@ -84,10 +84,10 @@ describe("updateSelectedServices.deselect", () => {
 
   test("should not deselect related when at least one main service stays selected", () => {
     const result = updateSelectedServices(
-      ["weddingSession", "photography", "videoRecording", "twoDayEvent"],
+      ["WeddingSession", "Photography", "VideoRecording", "TwoDayEvent"],
       {
         type: "Deselect",
-        service: "photography",
+        service: "Photography",
       }
     );
     expect(result).toEqual(["WeddingSession", "VideoRecording", "TwoDayEvent"]);
@@ -142,9 +142,9 @@ describe.each([
   "calcularePrice.photographyWithWeddingSessionPrice (%i increase by %i)",
   (year: ServiceYear, increase) => {
     test("price matches requirements", () => {
-      const withoutSession = calculatePrice(["photography"], year);
+      const withoutSession = calculatePrice(["Photography"], year);
       const withSession = calculatePrice(
-        ["photography", "weddingSession"],
+        ["Photography", "WeddingSession"],
         year
       );
 
@@ -157,10 +157,10 @@ describe.each([
     });
 
     test("discount applied", () => {
-      const withoutSession = calculatePrice(["photography"], year);
-      const onlySession = calculatePrice(["weddingSession"], year);
+      const withoutSession = calculatePrice(["Photography"], year);
+      const onlySession = calculatePrice(["WeddingSession"], year);
       const withSession = calculatePrice(
-        ["photography", "weddingSession"],
+        ["Photography", "WeddingSession"],
         year
       );
 
@@ -180,9 +180,9 @@ describe.each([
   "calcularePrice.videoRecordingWithWeddingSessionPrice (%i increase by %i)",
   (year: ServiceYear, increase) => {
     test("price matches requirements", () => {
-      const withoutSession = calculatePrice(["videoRecording"], year);
+      const withoutSession = calculatePrice(["VideoRecording"], year);
       const withSession = calculatePrice(
-        ["videoRecording", "weddingSession"],
+        ["VideoRecording", "WeddingSession"],
         year
       );
 
@@ -193,10 +193,10 @@ describe.each([
     });
 
     test("discount applied", () => {
-      const withoutSession = calculatePrice(["videoRecording"], year);
-      const onlySession = calculatePrice(["weddingSession"], year);
+      const withoutSession = calculatePrice(["VideoRecording"], year);
+      const onlySession = calculatePrice(["WeddingSession"], year);
       const withSession = calculatePrice(
-        ["videoRecording", "weddingSession"],
+        ["VideoRecording", "WeddingSession"],
         year
       );
 
@@ -216,9 +216,9 @@ describe.each([
   "calcularePrice.videoRecordingWithPhotographyPrice (%i increase by %i)",
   (year: ServiceYear, increase) => {
     test("price matches requirements", () => {
-      const withoutPhotography = calculatePrice(["videoRecording"], year);
+      const withoutPhotography = calculatePrice(["VideoRecording"], year);
       const withPhotography = calculatePrice(
-        ["videoRecording", "photography"],
+        ["VideoRecording", "Photography"],
         year
       );
 
@@ -229,10 +229,10 @@ describe.each([
     });
 
     test("discount applied", () => {
-      const withoutPhotography = calculatePrice(["videoRecording"], year);
-      const onlyPhotography = calculatePrice(["photography"], year);
+      const withoutPhotography = calculatePrice(["VideoRecording"], year);
+      const onlyPhotography = calculatePrice(["Photography"], year);
       const withPhotography = calculatePrice(
-        ["videoRecording", "photography"],
+        ["VideoRecording", "Photography"],
         year
       );
 
@@ -253,11 +253,11 @@ describe.each([
   (year: ServiceYear, increase) => {
     test("price matches requirements", () => {
       const withoutSession = calculatePrice(
-        ["videoRecording", "photography"],
+        ["VideoRecording", "Photography"],
         year
       );
       const withSession = calculatePrice(
-        ["videoRecording", "photography", "weddingSession"],
+        ["VideoRecording", "Photography", "WeddingSession"],
         year
       );
 
@@ -271,12 +271,12 @@ describe.each([
 
     test("discount applied", () => {
       const withoutSession = calculatePrice(
-        ["videoRecording", "photography"],
+        ["VideoRecording", "Photography"],
         year
       );
-      const onlySession = calculatePrice(["weddingSession"], year);
+      const onlySession = calculatePrice(["WeddingSession"], year);
       const withSession = calculatePrice(
-        ["videoRecording", "photography", "weddingSession"],
+        ["VideoRecording", "Photography", "WeddingSession"],
         year
       );
 

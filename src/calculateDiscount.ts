@@ -1,5 +1,5 @@
 import { ServiceType, ServiceYear } from ".";
-import { YearPrices } from "./data";
+import { YearPrices } from "./index";
 
 export const calculateDiscount = (
   selectedServices: ServiceType[],
@@ -7,7 +7,7 @@ export const calculateDiscount = (
   yearPrices: YearPrices
 ) => {
   const weddingDiscount = getWeddingSessionDiscount(
-    yearPrices.weddingSession,
+    yearPrices.WeddingSession,
     selectedServices,
     selectedYear
   );
@@ -34,8 +34,8 @@ const getWeddingSessionDiscount = (
   }
 
   if (
-    selectedServices.includes("photography") ||
-    selectedServices.includes("videoRecording")
+    selectedServices.includes("Photography") ||
+    selectedServices.includes("VideoRecording")
   ) {
     return 300;
   }
@@ -48,13 +48,13 @@ const getPhotographyAndVideoDiscount = (
   yearPrices: YearPrices
 ) => {
   if (
-    selectedServices.includes("photography") &&
-    selectedServices.includes("videoRecording")
+    selectedServices.includes("Photography") &&
+    selectedServices.includes("VideoRecording")
   ) {
     return (
-      yearPrices.photography +
-      yearPrices.videoRecording -
-      yearPrices.photographyAndVideo
+      yearPrices.Photography +
+      yearPrices.VideoRecording -
+      yearPrices.PhotographyAndVideo
     );
   }
 
