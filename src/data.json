@@ -1,28 +1,28 @@
 {
   "prices": {
     "2020": {
-      "photography": "1700",
-      "videoRecording": "1700",
-      "photographyAndVideo": "2200",
-      "weddingSession": "600",
-      "bluray": "300",
-      "twoDayEvent": "400"
+      "photography": 1700,
+      "videoRecording": 1700,
+      "photographyAndVideo": 2200,
+      "weddingSession": 600,
+      "blurayPackage": 300,
+      "twoDayEvent": 400
     },
     "2021": {
-      "photography": "1800",
-      "videoRecording": "1800",
-      "photographyAndVideo": "2300",
-      "weddingSession": "600",
-      "bluray": "300",
-      "twoDayEvent": "400"
+      "photography": 1800,
+      "videoRecording": 1800,
+      "photographyAndVideo": 2300,
+      "weddingSession": 600,
+      "blurayPackage": 300,
+      "twoDayEvent": 400
     },
     "2022": {
-      "photography": "1900",
-      "videoRecording": "1900",
-      "photographyAndVideo": "2500",
-      "weddingSession": "600",
-      "bluray": "300",
-      "twoDayEvent": "400"
+      "photography": 1900,
+      "videoRecording": 1900,
+      "photographyAndVideo": 2500,
+      "weddingSession": 600,
+      "blurayPackage": 300,
+      "twoDayEvent": 400
     }
   }
 }

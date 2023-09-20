@@ -3,6 +3,6 @@ export type YearPrices = {
   videoRecording: number;
   photographyAndVideo: number;
   weddingSession: number;
-  bluray: number;
+  blurayPackage: number;
   twoDayEvent: number;
 };

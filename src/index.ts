@@ -3,11 +3,11 @@ import data from "./data.json";
 
 export type ServiceYear = 2020 | 2021 | 2022;
 export type ServiceType =
-  | "Photography"
-  | "VideoRecording"
-  | "BlurayPackage"
-  | "TwoDayEvent"
-  | "WeddingSession";
+  | "photography"
+  | "videoRecording"
+  | "blurayPackage"
+  | "twoDayEvent"
+  | "weddingSession";
 
 export const updateSelectedServices = (
   previouslySelectedServices: ServiceType[],
@@ -17,9 +17,23 @@ export const updateSelectedServices = (
 export const calculatePrice = (
   selectedServices: ServiceType[],
   selectedYear: ServiceYear
-) => ({ basePrice: 0, finalPrice: 0 });
+) => {
+  const yearPrices = getYearPrices(selectedYear);
+
+  const basePrice = selectedServices.reduce(
+    (acc: number, service: ServiceType) => {
+      return acc + yearPrices[service];
+    },
+    0
+  );
+
+  const finalPrice = 0;
+  //   const finalPrice = calculateDiscount(basePrice);
+
+  return { basePrice, finalPrice };
+};
 
 const getYearPrices = (year: number) => {
-  const yearPrices: YearPrices = JSON.parse(data.prices[year]);
+  const yearPrices: YearPrices | undefined = data.prices[year];
   return yearPrices;
 };
