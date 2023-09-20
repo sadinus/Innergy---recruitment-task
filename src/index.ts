@@ -18,9 +18,10 @@ export const updateSelectedServices = (
 ) => {
   const { type, service } = action;
   const containsService = previouslySelectedServices.includes(service);
+  const shouldAddService = validateService(service, previouslySelectedServices);
 
-  if (type === "Select" && !containsService) {
-    return { ...previouslySelectedServices, service };
+  if (type === "Select" && !containsService && shouldAddService) {
+    return [...previouslySelectedServices, service];
   }
 
   if (type === "Deselect" && containsService) {
@@ -57,4 +58,26 @@ const calculateBasePrice = (
   );
 
   return basePrice;
+};
+
+const validateService = (
+  service: ServiceType,
+  previouslySelectedServices: ServiceType[]
+) => {
+  if (
+    service === "BlurayPackage" &&
+    !previouslySelectedServices.includes("VideoRecording")
+  ) {
+    return false;
+  }
+
+  if (
+    service === "TwoDayEvent" &&
+    !previouslySelectedServices.includes("Photography") &&
+    !previouslySelectedServices.includes("VideoRecording")
+  ) {
+    return false;
+  }
+
+  return true;
 };
