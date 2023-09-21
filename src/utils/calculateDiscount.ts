@@ -1,5 +1,4 @@
-import { ServiceType, ServiceYear } from ".";
-import { YearPrices } from "./index";
+import { ServiceType, ServiceYear, YearPrices } from "../types";
 
 export const calculateDiscount = (
   selectedServices: ServiceType[],
