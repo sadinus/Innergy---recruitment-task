@@ -16,12 +16,9 @@ export const calculateDiscount = (
     yearPrices
   );
 
-  const highestDiscount = Math.max(
-    weddingDiscount,
-    photographyAndVideoDiscount
-  );
+  const finalDiscount = weddingDiscount + photographyAndVideoDiscount;
 
-  return highestDiscount;
+  return finalDiscount;
 };
 
 const getWeddingSessionDiscount = (
