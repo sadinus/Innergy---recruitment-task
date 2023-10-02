@@ -1,2 +1,1 @@
-import data from "./data.json";
-export { data };
+export { getYearPrices } from "./getYearPrices";

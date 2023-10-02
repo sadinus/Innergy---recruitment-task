@@ -25,19 +25,16 @@ const getWeddingSessionDiscount = (
   selectedServices: ServiceType[],
   selectedYear: ServiceYear
 ) => {
-  if (
-    selectedYear === 2022 &&
-    selectedServices.includes("WeddingSession") &&
-    selectedServices.includes("Photography")
-  ) {
+  const hasWeddingSession = selectedServices.includes("WeddingSession");
+  const hasPhotography = selectedServices.includes("Photography");
+  const hasVideoRecording = selectedServices.includes("VideoRecording");
+  const isYear2022 = selectedYear === 2022;
+
+  if (isYear2022 && hasWeddingSession && hasPhotography) {
     return fullPrice;
   }
 
-  if (
-    selectedServices.includes("WeddingSession") &&
-    (selectedServices.includes("Photography") ||
-      selectedServices.includes("VideoRecording"))
-  ) {
+  if (hasWeddingSession && (hasPhotography || hasVideoRecording)) {
     return 300;
   }
 
@@ -48,10 +45,10 @@ const getPhotographyAndVideoDiscount = (
   selectedServices: ServiceType[],
   yearPrices: YearPrices
 ) => {
-  if (
-    selectedServices.includes("Photography") &&
-    selectedServices.includes("VideoRecording")
-  ) {
+  const hasPhotography = selectedServices.includes("Photography");
+  const hasVideoRecording = selectedServices.includes("VideoRecording");
+
+  if (hasPhotography && hasVideoRecording) {
     return (
       yearPrices.Photography +
       yearPrices.VideoRecording -

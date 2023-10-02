@@ -1,4 +1,10 @@
-export type ServiceYear = 2020 | 2021 | 2022;
+export type YearPrices = {
+  [service: string]: number;
+};
+
+export type ServicePrices = {
+  [year: number]: YearPrices;
+};
 
 export type ServiceType =
   | "Photography"
@@ -7,6 +13,8 @@ export type ServiceType =
   | "TwoDayEvent"
   | "WeddingSession";
 
-export type YearPrices = {
-  [K in ServiceType]: number;
-} & { PhotographyAndVideo: number };
+export type ServiceYear = 2020 | 2021 | 2022;
+
+export type PricesData = {
+  prices: ServicePrices;
+};

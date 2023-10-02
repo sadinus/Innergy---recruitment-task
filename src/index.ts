@@ -1,16 +1,16 @@
-import { data } from "./assets";
+import { getYearPrices } from "./assets";
 import {
   calculateBasePrice,
   calculateDiscount,
   deselectRelatedService,
   validateService,
 } from "./utils";
-import { ServiceType, ServiceYear, YearPrices } from "./types";
+import { ServiceType, ServiceYear } from "./types";
 
 export const updateSelectedServices = (
   previouslySelectedServices: ServiceType[],
   action: { type: "Select" | "Deselect"; service: ServiceType }
-) => {
+): ServiceType[] => {
   const { type, service } = action;
   const containsService = previouslySelectedServices.includes(service);
   const shouldSelectService = validateService(
@@ -36,8 +36,8 @@ export const updateSelectedServices = (
 export const calculatePrice = (
   selectedServices: ServiceType[],
   selectedYear: ServiceYear
-) => {
-  const yearPrices: YearPrices | undefined = data.prices[selectedYear];
+): { basePrice: number; finalPrice: number } => {
+  const yearPrices = getYearPrices(selectedYear);
   const basePrice = calculateBasePrice(selectedServices, yearPrices);
 
   const discount = calculateDiscount(
@@ -49,4 +49,3 @@ export const calculatePrice = (
 
   return { basePrice, finalPrice };
 };
-export { ServiceYear };

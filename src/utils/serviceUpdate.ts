@@ -4,18 +4,15 @@ export const validateService = (
   service: ServiceType,
   previouslySelectedServices: ServiceType[]
 ) => {
-  if (
-    service === "BlurayPackage" &&
-    !previouslySelectedServices.includes("VideoRecording")
-  ) {
+  const hasVideoRecording =
+    previouslySelectedServices.includes("VideoRecording");
+  const hasPhotography = previouslySelectedServices.includes("Photography");
+
+  if (service === "BlurayPackage" && !hasVideoRecording) {
     return false;
   }
 
-  if (
-    service === "TwoDayEvent" &&
-    !previouslySelectedServices.includes("Photography") &&
-    !previouslySelectedServices.includes("VideoRecording")
-  ) {
+  if (service === "TwoDayEvent" && !(hasPhotography || hasVideoRecording)) {
     return false;
   }
 
@@ -26,22 +23,19 @@ export const deselectRelatedService = (
   service: ServiceType,
   previouslySelectedServices: ServiceType[]
 ) => {
-  if (
-    (service === "Photography" || service === "VideoRecording") &&
-    !["Photography", "VideoRecording"].every((x: ServiceType) =>
-      previouslySelectedServices.includes(x)
-    ) &&
-    previouslySelectedServices.includes("TwoDayEvent")
-  ) {
+  const hasPhotographyOrVideo = !["Photography", "VideoRecording"].every(
+    (x: ServiceType) => previouslySelectedServices.includes(x)
+  );
+  const hasTwoDayEvent = previouslySelectedServices.includes("TwoDayEvent");
+  const hasBlurayPackage = previouslySelectedServices.includes("BlurayPackage");
+
+  if (hasPhotographyOrVideo && hasTwoDayEvent) {
     return previouslySelectedServices.filter(
       (x) => x !== service && x !== "TwoDayEvent"
     );
   }
 
-  if (
-    service === "VideoRecording" &&
-    previouslySelectedServices.includes("BlurayPackage")
-  ) {
+  if (service === "VideoRecording" && hasBlurayPackage) {
     return previouslySelectedServices.filter(
       (x) => x !== service && x !== "BlurayPackage"
     );
