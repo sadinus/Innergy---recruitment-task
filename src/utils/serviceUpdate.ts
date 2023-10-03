@@ -1,25 +1,26 @@
 import { ServiceType } from "../types";
 
-export const validateService = (
+export const selectService = (
   service: ServiceType,
   previouslySelectedServices: ServiceType[]
 ) => {
   const hasVideoRecording =
     previouslySelectedServices.includes("VideoRecording");
   const hasPhotography = previouslySelectedServices.includes("Photography");
+  const containsService = previouslySelectedServices.includes(service);
 
-  if (service === "BlurayPackage" && !hasVideoRecording) {
-    return false;
+  if (
+    containsService ||
+    (service === "BlurayPackage" && !hasVideoRecording) ||
+    (service === "TwoDayEvent" && !(hasPhotography || hasVideoRecording))
+  ) {
+    return previouslySelectedServices;
   }
 
-  if (service === "TwoDayEvent" && !(hasPhotography || hasVideoRecording)) {
-    return false;
-  }
-
-  return true;
+  return [...previouslySelectedServices, service];
 };
 
-export const deselectRelatedService = (
+export const deselectService = (
   service: ServiceType,
   previouslySelectedServices: ServiceType[]
 ) => {
@@ -28,6 +29,9 @@ export const deselectRelatedService = (
   );
   const hasTwoDayEvent = previouslySelectedServices.includes("TwoDayEvent");
   const hasBlurayPackage = previouslySelectedServices.includes("BlurayPackage");
+  const containsService = previouslySelectedServices.includes(service);
+
+  if (!containsService) return previouslySelectedServices;
 
   if (hasPhotographyOrVideo && hasTwoDayEvent) {
     return previouslySelectedServices.filter(

@@ -2,8 +2,8 @@ import { getYearPrices } from "./assets";
 import {
   calculateBasePrice,
   calculateDiscount,
-  deselectRelatedService,
-  validateService,
+  deselectService,
+  selectService,
 } from "./utils";
 import { ServiceType, ServiceYear } from "./types";
 
@@ -12,22 +12,13 @@ export const updateSelectedServices = (
   action: { type: "Select" | "Deselect"; service: ServiceType }
 ): ServiceType[] => {
   const { type, service } = action;
-  const containsService = previouslySelectedServices.includes(service);
-  const shouldSelectService = validateService(
-    service,
-    previouslySelectedServices
-  );
 
-  if (type === "Select" && !containsService && shouldSelectService) {
-    return [...previouslySelectedServices, service];
+  if (type === "Select") {
+    return selectService(service, previouslySelectedServices);
   }
 
-  if (type === "Deselect" && containsService) {
-    const services = deselectRelatedService(
-      service,
-      previouslySelectedServices
-    );
-    return services;
+  if (type === "Deselect") {
+    return deselectService(service, previouslySelectedServices);
   }
 
   return previouslySelectedServices;
